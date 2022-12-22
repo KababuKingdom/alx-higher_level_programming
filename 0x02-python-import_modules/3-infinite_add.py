@@ -1,9 +1,8 @@
 #!/usr/bin/python3
-
 if __name__ == "__main__":
-    """Print the sum of 1 and 2."""
-    from add_0 import add
+    import sys
 
-    a = 1
-    b = 2
-    print("{} + {} = {}".format(a, b, add(a, b)))
+    total = 0
+    for index in range(len(sys.argv) - 1):
+        total += int(sys.argv[index + 1])
+    print("{}".format(total))
