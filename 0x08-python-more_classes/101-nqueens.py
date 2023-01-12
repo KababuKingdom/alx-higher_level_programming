@@ -3,39 +3,36 @@
 
 import sys
 
-def solve_nqueens(n):
-    def is_safe(board, row, col):
-        for r in range(row):
-            if board[r] == col or abs(board[r] - col) == abs(r - row):
-                return False
-        return True
+def nqueens(n, board=[]):
+    if len(board) == n:
+        print(board)
+        return
+    for col in range(n):
+        board.append(col)
+        if is_valid(board):
+            nqueens(n, board)
+        board.pop()
 
-    def backtrack(board, row):
-        if row == n:
-            solutions.append(board[:])
-            return
-        for col in range(n):
-            if is_safe(board, row, col):
-                board[row] = col
-                backtrack(board, row + 1)
+def is_valid(board):
+    current_queen_row, current_queen_col = len(board) - 1, board[-1]
+    for row, col in enumerate(board[:-1]):
+        diff = abs(current_queen_col - col)
+        if diff == 0 or diff == current_queen_row - row:
+            return False
+    return True
 
-    solutions = []
-    board = [-1] * n
-    backtrack(board, 0)
-    return solutions
+if len(sys.argv) != 2:
+    print("Usage: nqueens N", file=sys.stderr)
+    sys.exit(1)
 
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: nqueens N", file=sys.stderr)
-        sys.exit(1)
-    try:
-        n = int(sys.argv[1])
-    except ValueError:
-        print("N must be a number", file=sys.stderr)
-        sys.exit(1)
-    if n < 4:
-        print("N must be at least 4", file=sys.stderr)
-        sys.exit(1)
-    solutions = solve_nqueens(n)
-    for solution in solutions:
-        print(solution)
+try:
+    n = int(sys.argv[1])
+except ValueError:
+    print("N must be a number", file=sys.stderr)
+    sys.exit(1)
+
+if n < 4:
+    print("N must be at least 4", file=sys.stderr)
+    sys.exit(1)
+
+nqueens(n)
