@@ -1,4 +1,4 @@
-#0x14. JavaScript - Web scraping
+# 0x14. JavaScript - Web scraping
 
 ## Tasks
 * **0. Readme** - Write a script that reads and prints the content of a file.. - `0-readme.js`.
